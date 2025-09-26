@@ -1,5 +1,5 @@
 import os
-import pathlib
+from pathlib import Path
 import uuid
 
 from django.core.exceptions import ValidationError
@@ -41,7 +41,7 @@ class Actor(models.Model):
 
 
 def movie_image_path(instance, filename):
-    ext = os.path.splitext(filename)[1]
+    ext = Path(filename).suffix
     filename = f"{slugify(instance.title)}-{uuid.uuid4()}{ext}"
     return os.path.join("uploads", "movies", filename)
 
